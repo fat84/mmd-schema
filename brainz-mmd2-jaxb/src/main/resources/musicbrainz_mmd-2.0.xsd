@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   ==================================================================
-  $Id: 3d5874f513d5aef33eab61ecb84badc4ea2ec96a $
+  $Id: e66b421fb25469bb65f98d606ca51666123ad84c $
 
   Relax NG Schema for MusicBrainz XML Metadata Version 2.0
 
@@ -91,6 +91,7 @@
         <xs:element minOccurs="0" ref="mmd-2.0:disambiguation"/>
         <xs:element minOccurs="0" ref="mmd-2.0:ipi"/>
         <xs:element minOccurs="0" ref="mmd-2.0:ipi-list"/>
+        <xs:element minOccurs="0" ref="mmd-2.0:isni-list"/>
         <xs:element minOccurs="0" ref="mmd-2.0:life-span"/>
         <xs:element minOccurs="0" ref="mmd-2.0:alias-list"/>
         <xs:element minOccurs="0" ref="mmd-2.0:recording-list"/>
@@ -267,6 +268,7 @@
         <xs:element minOccurs="0" ref="mmd-2.0:label-code"/>
         <xs:element minOccurs="0" ref="mmd-2.0:ipi"/>
         <xs:element minOccurs="0" ref="mmd-2.0:ipi-list"/>
+        <xs:element minOccurs="0" ref="mmd-2.0:isni-list"/>
         <xs:element minOccurs="0" ref="mmd-2.0:annotation"/>
         <xs:element minOccurs="0" ref="mmd-2.0:disambiguation"/>
         <xs:element minOccurs="0" ref="mmd-2.0:country"/>
@@ -1357,6 +1359,20 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <!-- An ISNI code (last digit is a MOD 11 check digit, so can be X for 10. -->
+  <xs:simpleType name="def_isni">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[0-9]{15}[0-9X]"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="isni-list">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="mmd-2.0:isni"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="isni" type="mmd-2.0:def_isni"/>
   <xs:element name="ended">
     <xs:simpleType>
       <xs:restriction base="xs:token">
